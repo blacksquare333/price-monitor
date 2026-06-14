@@ -1,9 +1,6 @@
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
 from supabase import create_client
 from dotenv import load_dotenv
 import os
-import requests
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
@@ -16,15 +13,13 @@ import time
 import random
 
 load_dotenv()
-app = Flask(__name__)
-CORS(app)
 
 SUPABASE_URL = os.getenv("SUPABASE_URL")
 SUPABASE_KEY = os.getenv("SUPABASE_KEY")
 supabase_client = create_client(SUPABASE_URL, SUPABASE_KEY)
 
 options = Options()
-
+options.add_argument("--headless")
 options.add_argument("--disable-blink-features=AutomationControlled")   
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 headers = {
